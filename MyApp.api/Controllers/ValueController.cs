@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyApp.api.Data;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
 namespace MyApp.api.Controllers
 {
+    [Authorize] 
     [ApiController]
     [Route("[controller]")]
         public class ValueController : ControllerBase
@@ -21,6 +22,7 @@ namespace MyApp.api.Controllers
         }
 
                     //GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Getvalues()
         {
@@ -28,6 +30,7 @@ namespace MyApp.api.Controllers
 
             return Ok(values);
         }
+        [AllowAnonymous]
             // api/values/2
         [HttpGet("{id}")]
         public async Task<IActionResult> Getvalue(int id)
