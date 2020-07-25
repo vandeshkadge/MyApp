@@ -20,16 +20,18 @@ export class NavComponent implements OnInit {
       console.log('login sucessfully');
     },
     error => {
-      console.log('Failed to login ');
+      console.log(error);
     });
 
   }
 
+  // tslint:disable-next-line: typedef
   loggedIn(){
     const token = localStorage.getItem('token');
     return !!token;
   }
 
+  // tslint:disable-next-line: typedef
   loggedOut()
   {
     localStorage.removeItem('token');
