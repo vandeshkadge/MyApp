@@ -15,6 +15,7 @@ user: User;
     galleryImages: NgxGalleryImage[];
   constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
+  // tslint:disable-next-line: typedef
   ngOnInit() {
     this.route.data
       .subscribe(data =>
@@ -39,6 +40,7 @@ user: User;
   //     error => {
   //       this.alertify.error(error);
   //     });
+    // tslint:disable-next-line: typedef
     getImages()
     {
       const imageUrls = [];

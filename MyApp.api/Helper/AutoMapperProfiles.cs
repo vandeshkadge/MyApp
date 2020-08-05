@@ -22,6 +22,9 @@ namespace MyApp.api.Helper
                opt.MapFrom(src => src.DateOfBirth.CalcualteAge()));
 
             CreateMap<Photo, PhotosForDetailedDto>();
+            CreateMap<UserForUpdateDto,User>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
        }
     }
 }

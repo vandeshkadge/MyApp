@@ -7,6 +7,7 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {JwtModule} from '@auth0/angular-jwt';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { NgxGalleryModule } from 'ngx-gallery-9';
 import { NavComponent } from './nav/nav.component';
@@ -24,8 +25,13 @@ import {MemberCardComponent} from './members/member-card/member-card.component';
 import {MemberDetailComponent} from './members/member-detail/member-detail.component';
 import {MemberDetailResolver} from './_resolver/member-detail.resolver';
 import { MemberListResolver } from './_resolver/member-list.resolver';
+import {MemberEditComponent} from './members/member-edit/member-edit.component';
+import {MemberEditResolver} from './_resolver/member-edit.resolver';
+import {PreventUnsavedChanges} from './_guards/prevent-unsaved-change.guard';
+import {PhotoEditorComponent} from './members/photo-editor/photo-editor.component';
 
 
+// tslint:disable-next-line: typedef
 export function tokenGetter()
 {
    return localStorage.getItem('token');
@@ -40,13 +46,16 @@ export function tokenGetter()
       ListsComponent,
       MessagesComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent,
+      PhotoEditorComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
       NgxGalleryModule,
+      FileUploadModule,
       BrowserAnimationsModule,
       TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
@@ -64,7 +73,9 @@ export function tokenGetter()
       ErrorInterceptorProvider,
       UserService,
       MemberDetailResolver,
-      MemberListResolver
+      MemberListResolver,
+      MemberEditResolver,
+      PreventUnsavedChanges
    ],
    bootstrap: [
       AppComponent

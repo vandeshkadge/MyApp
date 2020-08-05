@@ -43,6 +43,7 @@ namespace MyApp.api
             services.AddControllers();
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
             services.AddScoped<IAuthRepository,AuthRepository>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddScoped<IDatingRepository,DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer
             (
@@ -58,6 +59,7 @@ namespace MyApp.api
                     };
                 }
             );
+            
 
             
         }
@@ -90,7 +92,8 @@ namespace MyApp.api
 
             app.UseRouting();
             app.UseCors(x=> x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseAuthorization();
+            app.UseAuthentication(); 
+            app.UseAuthorization();          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
