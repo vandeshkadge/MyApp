@@ -8,10 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {JwtModule} from '@auth0/angular-jwt';
 import { FileUploadModule } from 'ng2-file-upload';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 import { NgxGalleryModule } from 'ngx-gallery-9';
 import { NavComponent } from './nav/nav.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthService} from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -53,10 +54,13 @@ export function tokenGetter()
    imports: [
       BrowserModule,
       HttpClientModule,
+      BrowserAnimationsModule,
       FormsModule,
       NgxGalleryModule,
       FileUploadModule,
+      ReactiveFormsModule,
       BrowserAnimationsModule,
+      BsDatepickerModule.forRoot(),
       TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
