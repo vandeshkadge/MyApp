@@ -59,7 +59,7 @@ namespace MyApp.api
                     };
                 }
             );
-            
+            services.AddScoped<LogUserActivity>();
 
             
         }

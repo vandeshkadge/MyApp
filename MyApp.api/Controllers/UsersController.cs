@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.api.Data;
 using MyApp.api.Dtos;
+using MyApp.api.Helper;
 
 namespace MyApp.api.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     
