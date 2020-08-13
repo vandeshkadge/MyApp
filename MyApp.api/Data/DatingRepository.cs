@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MyApp.api.Helper;
 using MyApp.api.Models;
 
 namespace MyApp.api.Data
@@ -46,10 +48,37 @@ namespace MyApp.api.Data
 
         
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PageList<User>> GetUsers(UserParams userParams)
         {
-           var users = await _context.Users.Include(p => p.Photos).ToListAsync();
-           return users;
+           var users =  _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
+
+           users = users.Where(u => u.Id != userParams.UserId);
+
+           users = users.Where(u => u.Gender == userParams.Gender);
+
+           if(userParams.MinAge !=18 || userParams.MaxAge!= 99)
+           {
+               var minDob = DateTime.Now.AddYears(-userParams.MaxAge -1);
+               var maxDob = DateTime.Now.AddYears(-userParams.MinAge);
+
+                users = users.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+           }
+
+           if(!string.IsNullOrEmpty(userParams.orderBy))
+           {
+               switch(userParams.orderBy)
+               {
+                   case "created": 
+                   users = users.OrderByDescending( u => u.Created);
+                   break;
+
+                   default:
+                   users = users.OrderByDescending(u => u.LastActive);
+                   break;
+               }
+           }
+
+           return await PageList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<bool> SaveAll()
